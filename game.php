@@ -6,16 +6,27 @@ $mysqli = new mysqli('157.112.147.201', 'coyotepkai_root', 'root1234', 'coyotepk
 $sql = "SELECT * FROM rooms WHERE room_id = '" . $room_id . "';";
 $result = $mysqli->query($sql);
 $array = $result->fetch_array();
+$ifcoyote = $array["ifcoyote"];
+// すでにコヨーテボタンが押されている場合は、遷移
+if ($ifcoyote == 1) {
+    header("Location: coyote.php");
+    exit();
+}
 $player_number = $array["player_number"];
 ?>
 
-<!DOCTYPE html>
-<head>
-    <link rel="stylesheet" type="text/css" href="common.css">
-</head>
+    <!DOCTYPE html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="common.css">
+    </head>
 
-<body>
-<div id="title">COYOTE</div>
+    <!-- 2秒ごとに読み込む。ifstartが1ならgame_start2.phpを経由してgame.phpへ。 -->
+    <Script LANGUAGE="JavaScript">
+        setTimeout("location.reload()", 1000 * 2);
+    </Script>
+
+    <body>
+    <div id="title">COYOTE</div>
 
 <?php
 $cards = $array["cards"];
@@ -31,5 +42,8 @@ for ($i = 1; $i < $player_number + 1; $i++) {
         echo "<br>";
     }
 }
-?>
 
+if (substr($player, -1) < $player_number + 1) {
+    echo "<a href='coyote.php'>Coyote!</a>";
+}
+?>

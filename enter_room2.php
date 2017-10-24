@@ -47,6 +47,17 @@ for ($i = 1; $i < $player_number + 1; $i++) {
     }
 }
 
+for ($i = 1; $i < $watch_number + 1; $i++) {
+    $player_other = "player" . ($player_number + $i);
+    $player_other = $array[$player_other];
+    if ($player_name === $player_other) {
+        unlock();
+        header("Location: same_name.php?room_id=" . $room_id);
+        exit();
+    }
+}
+
+
 // プレイヤーとして参加する場合
 $ifstart = $array["ifstart"];
 if ($ifstart == 0) {
