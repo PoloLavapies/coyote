@@ -5,3 +5,7 @@ body {
     font-size: 2em;
     text-align:center;
 }
+
+input{
+    height: 50px;
+}

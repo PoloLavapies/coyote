@@ -1,0 +1,5 @@
+TODO
+フォームのサイズを2emにする
+画像表示(game.phpとcoyote.php)
+部屋の削除(時刻に基づく?)
+game_start.phpでの脱退の処理

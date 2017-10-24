@@ -59,7 +59,26 @@ for ($i = 1; $i < $player_number + 1; $i++) {
     // プレイヤー名の取得
     $player_name = $array["player" . $i];
     $card = substr($cards, -$i, 1);
-    echo $player_name . ":" . $card;
+    if ($card == "8") {
+        $score = "20";
+    } elseif ($card == "7") {
+        $score = "15";
+    } elseif ($card == "6") {
+        $score = "10";
+    } elseif ($card == "b") {
+        $score = "0(Black)";
+    } elseif ($card == "f") {
+        $score = "-5";
+    } elseif ($card == "t") {
+        $score = "-10";
+    } elseif ($card == "m") {
+        $score = "Max→0";
+    } elseif ($card == "d") {
+        $score = "×2";
+    } else {
+        $score = $card;
+    }
+    echo $player_name . ":" . $score;
     echo "<br>";
     if ($card === "?") {
         $ifhatena = 1;
