@@ -24,8 +24,9 @@ $sql = "SELECT * FROM rooms WHERE room_id = '" . $room_id . "';";
 $result = $mysqli->query($sql);
 $array = $result->fetch_array();
 $player_number = $array["player_number"];
+$watch_number = $array["watch_number"];
 // 何番目のプレイヤーか調べる
-for ($i = 1; $i < $player_number + 1; $i++) {
+for ($i = 1; $i < $player_number + $watch_number + 2; $i++) {
     $player_name_test = $array["player" . (string)$i];
     if ($player_name_test === $player_name) {
         $player = "player" . (string)$i;

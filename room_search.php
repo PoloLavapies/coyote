@@ -26,6 +26,8 @@ while ($array = $result->fetch_array()) {
         }
     }
     echo "<div><a href='enter_room.php?room_id=" . $room_id . "'>参加</a></div>";
+    echo "<div><a href='delete_room.php?room_id=" . $room_id . "'>削除</a></div>";
 }
 ?>
+<div><a href='index.php'>トップへ</a></div>
 </body>

@@ -6,7 +6,7 @@
 <body>
 <div id="title">COYOTE</div>
 
-<div class="comment">部屋を作成しました。</div>
+<div class="comment">部屋が削除されました。</div>
 <Script language="JavaScript">
     mnt = 1.5; // 何秒後に移動するか？
     url = "index.php"; // 移動するアドレス

@@ -18,6 +18,13 @@ if ($ifstart == 1) {
     header("Location: game_start2.php");
     exit();
 }
+
+// もし部屋が削除されていた場合は削除通知ページへ
+$room_id = $array["room_id"];
+if ($room_id == "") {
+    header("Location: room_delete_notice.php");
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
