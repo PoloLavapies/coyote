@@ -1,7 +1,7 @@
 <?php
 session_start();
 $room_id = $_SESSION["room_id"];
-$player = $_SESSION["player"];
+$player_name = $_SESSION["player_name"];
 
 function lock()
 {
@@ -23,6 +23,15 @@ $mysqli = new mysqli('157.112.147.201', 'coyotepkai_root', 'root1234', 'coyotepk
 $sql = "SELECT * FROM rooms WHERE room_id = '" . $room_id . "';";
 $result = $mysqli->query($sql);
 $array = $result->fetch_array();
+$player_number = $array["player_number"];
+// 何番目のプレイヤーか調べる
+for ($i = 1; $i < $player_number + 1; $i++) {
+    $player_name_test = $array["player" . (string)$i];
+    if ($player_name_test === $player_name) {
+        $player = "player" . (string)$i;
+        break;
+    }
+}
 // 他のプレイヤーがgame_end.phpを実行した場合はgame_start.phpへ
 $ifstart = $array["ifstart"];
 if ($ifstart == 0) {
@@ -49,7 +58,6 @@ $mysqli->query($sql);
     <div id="title">COYOTE</div>
 
 <?php
-$player_number = $array["player_number"];
 $cards = $array["cards"];
 $ifhatena = 0;
 $ifmax0 = 0;
@@ -57,7 +65,7 @@ $ifdouble = 0;
 $card_list = array();
 for ($i = 1; $i < $player_number + 1; $i++) {
     // プレイヤー名の取得
-    $player_name = $array["player" . $i];
+    $player_name_other = $array["player" . $i];
     $card = substr($cards, -$i, 1);
     if ($card == "8") {
         $score = "20";
@@ -78,7 +86,7 @@ for ($i = 1; $i < $player_number + 1; $i++) {
     } else {
         $score = $card;
     }
-    echo $player_name . ":" . $score;
+    echo $player_name_other . ":" . $score;
     echo "<br>";
     if ($card === "?") {
         $ifhatena = 1;
@@ -122,17 +130,18 @@ for ($i = 0; $i < $length; $i++) {
         $score_list[] = (int)$card;
     }
 }
+$score_length = count($score_list);
 
 // Max0がある場合
 if ($ifmax0 == 1) {
     rsort($score_list);
     $score_list = array_slice($score_list, 1);
-    $length -= 1;
+    $score_length -= 1;
 }
 
 // 合計計算
 $sum = 0;
-for ($i = 0; $i < $length; $i++) {
+for ($i = 0; $i < $score_length; $i++) {
     $score = $score_list[$i];
     $sum += $score;
 }
@@ -142,8 +151,9 @@ if ($ifdouble == 1) {
     $sum *= 2;
 }
 
-echo "合計:" . $sum;
+echo "<div class='comment'>合計:" . $sum . "</div>";
 
+// ゲームに参加している場合はリセットボタンを表示
 if (substr($player, -1) < $player_number + 1) {
     echo "<a href='game_end.php'>Reset</a>";
 }

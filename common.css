@@ -1,11 +1,19 @@
 body {
     margin: auto;
     padding-top: 10px;
-    max-width: 750px;;
-    font-size: 2em;
+    max-width: 900px;;
+    font-size: 3em;
     text-align:center;
 }
 
-input{
-    height: 50px;
+input.input{
+    height: 1em;
+    width: 300px;
+    font-size:1em;
+}
+
+input.submit{
+    border-style:none;
+    height: 1.5em;
+    font-size:1em;
 }

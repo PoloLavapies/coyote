@@ -1,18 +1,26 @@
 <?php
 session_start();
 $room_id = $_SESSION["room_id"];
-$player = $_SESSION["player"];
+$player_name = $_SESSION["player_name"];
 $mysqli = new mysqli('157.112.147.201', 'coyotepkai_root', 'root1234', 'coyotepkai_db');
 $sql = "SELECT * FROM rooms WHERE room_id = '" . $room_id . "';";
 $result = $mysqli->query($sql);
 $array = $result->fetch_array();
-$ifcoyote = $array["ifcoyote"];
+$player_number = $array["player_number"];
+// 何番目のプレイヤーか調べる
+for ($i = 1; $i < $player_number + 1; $i++) {
+    $player_name_test = $array["player" . (string)$i];
+    if ($player_name_test === $player_name) {
+        $player = "player" . (string)$i;
+        break;
+    }
+}
 // すでにコヨーテボタンが押されている場合は、遷移
+$ifcoyote = $array["ifcoyote"];
 if ($ifcoyote == 1) {
     header("Location: coyote.php");
     exit();
 }
-$player_number = $array["player_number"];
 ?>
 
     <!DOCTYPE html>
@@ -32,7 +40,7 @@ $player_number = $array["player_number"];
 $cards = $array["cards"];
 for ($i = 1; $i < $player_number + 1; $i++) {
     // プレイヤー名の取得
-    $player_name = $array["player" . $i];
+    $player_name_other = $array["player" . $i];
     $card = substr($cards, -$i, 1);
     if (!("player" . $i === $player)) {
         if ($card == "8") {
@@ -54,7 +62,7 @@ for ($i = 1; $i < $player_number + 1; $i++) {
         } else {
             $score = $card;
         }
-        echo $player_name . ":" . $score;
+        echo $player_name_other . ":" . $score;
         echo "<br>";
     } else {
         echo $player_name . ":???";

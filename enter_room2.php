@@ -68,7 +68,7 @@ if ($ifstart == 0) {
     $sql = "UPDATE rooms SET " . $player . " = '" . $player_name . "' WHERE room_id = " . $room_id . ";";
     $mysqli->query($sql);
     $_SESSION['room_id'] = $room_id;
-    $_SESSION['player'] = $player;
+    $_SESSION['player_name'] = $player_name;
 
     unlock();
     header("Location: game_start.php");
@@ -84,7 +84,7 @@ if ($ifstart == 0) {
     $sql = "UPDATE rooms SET " . $player . " = '" . $player_name . "' WHERE room_id = " . $room_id . ";";
     $mysqli->query($sql);
     $_SESSION['room_id'] = $room_id;
-    $_SESSION['player'] = $player;
+    $_SESSION['player_name'] = $player_name;
     unlock();
     header("Location: game.php");
     exit();

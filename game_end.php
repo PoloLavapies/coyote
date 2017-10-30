@@ -1,7 +1,7 @@
 <?php
 session_start();
 $room_id = $_SESSION["room_id"];
-$player = $_SESSION["player"];
+$player_name = $_SESSION["player_name"];
 
 function lock()
 {

@@ -32,7 +32,7 @@ for ($i = 0; $i < $player_number; $i++) {
     <?php
     echo "<input type='hidden' name='room_id' value='" . $room_id . "'>";
     ?>
-    <input type="text" name="player_name">
-    <input type="submit" value="参加">
+    <input class="input" type="text" name="player_name">
+    <input class="submit" type="submit" value="参加">
 </form>
 </body>

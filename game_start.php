@@ -1,9 +1,7 @@
 <?php
 session_start();
 $room_id = $_SESSION["room_id"];
-$player = $_SESSION["player"];
-
-// ゲーム開始後にメンバーが加わった場合を想定し、ここから先でplayer_numberはセッションで受けわたす
+$player_name = $_SESSION["player_name"];
 $mysqli = new mysqli('157.112.147.201', 'coyotepkai_root', 'root1234', 'coyotepkai_db');
 $sql = "SELECT * FROM rooms WHERE room_id = '" . $room_id . "';";
 $result = $mysqli->query($sql);
@@ -36,17 +34,20 @@ if ($ifstart == 1) {
 </Script>
 
 <?php
-// プレイヤー名
-$player_name = $array[$player];
 $player_number = $array["player_number"];
 $message = "<div class='comment'>ようこそ、" . $player_name . "さん</div>";
+echo "<form action='ridatsu.php'>";
+echo "<input type='hidden' name='player' value='" . $player . "'>" ;
+echo "<input type='hidden' name='room_id' value='" . $room_id . "'>";
+echo "<input class='submit' type='submit' value='抜ける'>";
+echo "</form>";
 echo $message;
 // 部屋名
 $room_name = $array["room_name"];
 echo "<div class='comment'>部屋名:";
 echo $room_name;
 echo "</div>";
-// 他のメンバー
+// メンバーの一覧表示
 echo "<div class='comment'>メンバー</div><div>";
 for ($i = 1; $i < $player_number + 1; $i++) {
     $player = "player" . $i;
